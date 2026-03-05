@@ -1,36 +1,127 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# PropertyGenie
+
+A property search and discovery platform for the Malaysian real estate market. Browse, filter, and save property searches with a clean, responsive interface.
+
+## Features
+
+- **Property Search** - Search properties by name with instant results
+- **Location Filtering** - Filter by city or state with autocomplete suggestions
+- **Advanced Filters** - Filter by property type, price range, bedrooms, and bathrooms
+- **Sorting** - Sort results by price or listing date
+- **Saved Searches** - Save and load your search criteria (stored in localStorage)
+- **Pagination** - Navigate through paginated property listings
+- **Responsive Design** - Fully responsive layout with mobile filter sheet and desktop sidebar
+
+## Tech Stack
+
+- **Framework**: [Next.js 16](https://nextjs.org) (App Router, Server Components)
+- **Language**: TypeScript
+- **Styling**: [Tailwind CSS 4](https://tailwindcss.com)
+- **UI Components**: [shadcn/ui](https://ui.shadcn.com) + [Radix UI](https://www.radix-ui.com)
+- **Icons**: [Lucide React](https://lucide.dev)
+
+## Project Structure
+
+```
+app/
+  layout.tsx              # Root layout with fonts and metadata
+  page.tsx                # Redirects to /for-sale
+  globals.css             # Theme variables and Tailwind config
+  for-sale/
+    page.tsx              # Main property listing page (Server Component)
+    loading.tsx           # Loading skeleton UI
+    error.tsx             # Error boundary
+  api/
+    properties/route.ts   # Proxy to PropertyGenie properties API
+    locations/route.ts    # Proxy to PropertyGenie locations API
+components/
+  property/
+    property-card.tsx     # Individual property card
+    property-grid.tsx     # Property grid layout + skeleton
+    search-bar.tsx        # Name search input
+    search-filters.tsx    # Sidebar/sheet filters (type, price, beds, baths)
+    location-search.tsx   # Location autocomplete popover
+    sort-select.tsx       # Sort dropdown
+    saved-searches.tsx    # Save/load search criteria
+    pagination.tsx        # Page navigation
+  ui/                     # shadcn/ui primitives
+hooks/
+  use-saved-searches.ts   # localStorage hook for saved searches
+types/
+  property.ts             # TypeScript interfaces for Property, API responses, etc.
+```
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- Node.js 18+
+- npm, yarn, pnpm, or bun
+
+### Installation
+
+```bash
+npm install
+```
+
+### Environment Variables
+
+Create a `.env` file in the root directory:
+
+```env
+API_BASE=https://agents.propertygenie.com.my/api
+```
+
+### Development
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Build
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run build
+npm start
+```
 
-## Learn More
+### Lint
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+npm run lint
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## API Endpoints
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+The app proxies requests through Next.js API routes:
 
-## Deploy on Vercel
+| Route | Method | Description |
+|---|---|---|
+| `/api/properties?page=1&sort=-createdAt` | POST | Search properties with filters in request body |
+| `/api/locations?keyword=kuala` | GET | Search locations by keyword |
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Search Filters (POST body for `/api/properties`)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```json
+{
+  "section": "sale",
+  "name": "optional search term",
+  "types": ["condo", "apartment"],
+  "bedRooms": [2, 3],
+  "bathRooms": [1, 2],
+  "minPrice": 100000,
+  "maxPrice": 500000
+}
+```
+
+## Deployment
+
+Deploy on [Vercel](https://vercel.com) for the best experience with Next.js:
+
+```bash
+npx vercel
+```
+
+Or build and deploy to any Node.js hosting provider that supports Next.js.
