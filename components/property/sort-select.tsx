@@ -11,16 +11,16 @@ import {
 import type { SortOption } from "@/types/property";
 
 const SORT_OPTIONS: { value: SortOption; label: string }[] = [
-  { value: "newest", label: "Newest First" },
-  { value: "oldest", label: "Oldest First" },
-  { value: "price_low", label: "Price: Low to High" },
-  { value: "price_high", label: "Price: High to Low" },
+  { value: "-createdAt", label: "Newest First" },
+  { value: "createdAt", label: "Oldest First" },
+  { value: "price", label: "Price: Low to High" },
+  { value: "-price", label: "Price: High to Low" },
 ];
 
 export function SortSelect() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const currentSort = (searchParams.get("sort") as SortOption) || "newest";
+  const currentSort = (searchParams.get("sort") as SortOption) || "-createdAt";
 
   function handleSortChange(value: string) {
     const params = new URLSearchParams(searchParams.toString());

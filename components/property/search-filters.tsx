@@ -17,7 +17,9 @@ import { SlidersHorizontal } from "lucide-react";
 
 const PROPERTY_TYPES = [
   "apartment",
-  "condominium",
+  "condo",
+  "flat",
+  "room",
   "terrace",
   "semi-detached",
   "bungalow",
@@ -28,7 +30,7 @@ const PROPERTY_TYPES = [
   "studio",
 ];
 
-const BEDROOMS = ["1", "2", "3", "4", "5"];
+const BEDROOMS = ["0", "1", "2", "3", "4", "5"];
 const BATHROOMS = ["1", "2", "3", "4", "5"];
 
 function FilterContent({
@@ -220,8 +222,12 @@ export function SearchFilters() {
     const params = new URLSearchParams();
     const name = searchParams.get("name");
     const sort = searchParams.get("sort");
+    const location = searchParams.get("location");
+    const locationType = searchParams.get("locationType");
     if (name) params.set("name", name);
     if (sort) params.set("sort", sort);
+    if (location) params.set("location", location);
+    if (locationType) params.set("locationType", locationType);
     router.push(`/for-sale?${params.toString()}`);
     setOpen(false);
   }

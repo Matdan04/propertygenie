@@ -40,18 +40,18 @@ export interface SearchFilters {
   name?: string;
   categories?: string[];
   types?: string[];
-  bedRooms?: string[];
-  bathRooms?: string[];
+  bedRooms?: number[];
+  bathRooms?: number[];
   minPrice?: number;
   maxPrice?: number;
   furnishings?: string[];
 }
 
 export type SortOption =
-  | "newest"
-  | "oldest"
-  | "price_low"
-  | "price_high";
+  | "price"
+  | "-price"
+  | "createdAt"
+  | "-createdAt";
 
 export interface ApiMeta {
   totalCount: number;
