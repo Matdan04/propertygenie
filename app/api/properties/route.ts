@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 
-const API_BASE = "https://agents.propertygenie.com.my/api";
+const API_BASE = process.env.API_BASE;
 
 export async function POST(request: NextRequest) {
   try {
