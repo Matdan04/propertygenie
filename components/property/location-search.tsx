@@ -86,12 +86,12 @@ export function LocationSearch() {
 
   if (selectedLocation) {
     return (
-      <Badge variant="secondary" className="gap-1 px-3 py-1.5 text-sm">
+      <Badge variant="secondary" className="gap-1.5 px-3 py-1.5 text-sm bg-primary/10 text-primary border border-primary/20 hover:bg-primary/15">
         <MapPin className="h-3 w-3" />
         {selectedLocation}
         <button
           onClick={handleClear}
-          className="ml-1 hover:text-foreground text-muted-foreground"
+          className="ml-1 hover:text-primary/80 transition-colors"
         >
           <X className="h-3 w-3" />
         </button>
@@ -102,8 +102,8 @@ export function LocationSearch() {
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
-        <Button variant="outline" className="gap-2">
-          <MapPin className="h-4 w-4" />
+        <Button variant="outline" className="gap-2 bg-white">
+          <MapPin className="h-4 w-4 text-primary/70" />
           Location
         </Button>
       </PopoverTrigger>
@@ -131,7 +131,7 @@ export function LocationSearch() {
                     value={loc.slug}
                     onSelect={() => handleSelect(loc)}
                   >
-                    <MapPin className="h-4 w-4 mr-2 text-muted-foreground" />
+                    <MapPin className="h-4 w-4 mr-2 text-primary/60" />
                     {loc.title}
                   </CommandItem>
                 ))}
@@ -145,7 +145,7 @@ export function LocationSearch() {
                     value={loc.slug}
                     onSelect={() => handleSelect(loc)}
                   >
-                    <MapPin className="h-4 w-4 mr-2 text-muted-foreground" />
+                    <MapPin className="h-4 w-4 mr-2 text-primary/60" />
                     {loc.title}
                   </CommandItem>
                 ))}

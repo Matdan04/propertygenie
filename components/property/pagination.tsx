@@ -33,7 +33,6 @@ export function PropertyPagination({
     router.push(getPageUrl(page));
   }
 
-  // Generate page numbers to show
   const pages: (number | "ellipsis")[] = [];
   if (pageCount <= 7) {
     for (let i = 1; i <= pageCount; i++) pages.push(i);
@@ -50,7 +49,7 @@ export function PropertyPagination({
   }
 
   return (
-    <Pagination className="mt-8">
+    <Pagination className="mt-10">
       <PaginationContent>
         <PaginationItem>
           <PaginationPrevious

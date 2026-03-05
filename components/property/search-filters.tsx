@@ -71,53 +71,56 @@ function FilterContent({
   return (
     <div className="space-y-6">
       <div>
-        <h4 className="font-medium mb-3">Property Type</h4>
-        <div className="space-y-2">
+        <h4 className="font-semibold text-sm text-foreground mb-3">Property Type</h4>
+        <div className="space-y-2.5">
           {PROPERTY_TYPES.map((type) => (
-            <label key={type} className="flex items-center gap-2 cursor-pointer">
+            <label key={type} className="flex items-center gap-2.5 cursor-pointer group">
               <Checkbox
                 checked={selectedTypes.includes(type)}
                 onCheckedChange={() => toggleItem(selectedTypes, type, setSelectedTypes)}
               />
-              <span className="text-sm capitalize">{type}</span>
+              <span className="text-sm capitalize text-muted-foreground group-hover:text-foreground transition-colors">
+                {type}
+              </span>
             </label>
           ))}
         </div>
       </div>
 
-      <Separator />
+      <Separator className="bg-border/50" />
 
       <div>
-        <h4 className="font-medium mb-3">Price Range</h4>
+        <h4 className="font-semibold text-sm text-foreground mb-3">Price Range</h4>
         <div className="flex items-center gap-2">
           <Input
             type="number"
             placeholder="Min"
             value={minPrice}
             onChange={(e) => setMinPrice(e.target.value)}
-            className="w-full"
+            className="w-full bg-white"
           />
-          <span className="text-muted-foreground">-</span>
+          <span className="text-muted-foreground text-sm">-</span>
           <Input
             type="number"
             placeholder="Max"
             value={maxPrice}
             onChange={(e) => setMaxPrice(e.target.value)}
-            className="w-full"
+            className="w-full bg-white"
           />
         </div>
       </div>
 
-      <Separator />
+      <Separator className="bg-border/50" />
 
       <div>
-        <h4 className="font-medium mb-3">Bedrooms</h4>
+        <h4 className="font-semibold text-sm text-foreground mb-3">Bedrooms</h4>
         <div className="flex flex-wrap gap-2">
           {BEDROOMS.map((bed) => (
             <Button
               key={bed}
               variant={selectedBedrooms.includes(bed) ? "default" : "outline"}
               size="sm"
+              className={selectedBedrooms.includes(bed) ? "shadow-sm" : "bg-white"}
               onClick={() => toggleItem(selectedBedrooms, bed, setSelectedBedrooms)}
             >
               {bed}+
@@ -126,16 +129,17 @@ function FilterContent({
         </div>
       </div>
 
-      <Separator />
+      <Separator className="bg-border/50" />
 
       <div>
-        <h4 className="font-medium mb-3">Bathrooms</h4>
+        <h4 className="font-semibold text-sm text-foreground mb-3">Bathrooms</h4>
         <div className="flex flex-wrap gap-2">
           {BATHROOMS.map((bath) => (
             <Button
               key={bath}
               variant={selectedBathrooms.includes(bath) ? "default" : "outline"}
               size="sm"
+              className={selectedBathrooms.includes(bath) ? "shadow-sm" : "bg-white"}
               onClick={() => toggleItem(selectedBathrooms, bath, setSelectedBathrooms)}
             >
               {bath}+
@@ -144,13 +148,13 @@ function FilterContent({
         </div>
       </div>
 
-      <Separator />
+      <Separator className="bg-border/50" />
 
       <div className="flex gap-2">
-        <Button onClick={onApply} className="flex-1">
+        <Button onClick={onApply} className="flex-1 shadow-sm">
           Apply Filters
         </Button>
-        <Button onClick={onReset} variant="outline" className="flex-1">
+        <Button onClick={onReset} variant="outline" className="flex-1 bg-white">
           Reset
         </Button>
       </div>
@@ -253,7 +257,7 @@ export function SearchFilters() {
       <div className="lg:hidden">
         <Sheet open={open} onOpenChange={setOpen}>
           <SheetTrigger asChild>
-            <Button variant="outline" className="gap-2">
+            <Button variant="outline" className="gap-2 bg-white">
               <SlidersHorizontal className="h-4 w-4" />
               Filters
               {activeFilterCount > 0 && (
@@ -275,9 +279,9 @@ export function SearchFilters() {
       </div>
 
       {/* Desktop: Sidebar */}
-      <aside className="hidden lg:block w-64 shrink-0">
-        <div className="sticky top-4 space-y-4">
-          <h3 className="font-semibold text-lg">Filters</h3>
+      <aside className="hidden lg:block w-[260px] shrink-0">
+        <div className="sticky top-20 rounded-xl border border-border/50 bg-white p-5 shadow-sm">
+          <h3 className="font-semibold text-base text-foreground mb-5">Filters</h3>
           <FilterContent {...filterProps} />
         </div>
       </aside>

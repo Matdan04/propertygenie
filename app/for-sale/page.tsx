@@ -7,6 +7,7 @@ import { SortSelect } from "@/components/property/sort-select";
 import { SearchFilters } from "@/components/property/search-filters";
 import { LocationSearch } from "@/components/property/location-search";
 import { SavedSearches } from "@/components/property/saved-searches";
+import { Home } from "lucide-react";
 
 export const metadata = {
   title: "Properties For Sale | PropertyGenie",
@@ -65,7 +66,6 @@ export default async function ForSalePage({ searchParams }: PageProps) {
   let filteredCount = data._meta.totalCount;
 
   if (location && locationType) {
-    // Location titles from API are like "Klang, Selangor" — extract the name part
     const locationName = location.split(",")[0].trim().toLowerCase();
     filteredItems = data.items.filter((property) => {
       const type = locationType.toLowerCase();
@@ -81,10 +81,27 @@ export default async function ForSalePage({ searchParams }: PageProps) {
   }
 
   return (
-    <div className="min-h-screen">
-      <header className="sticky top-0 z-10 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b">
+    <div className="min-h-screen flex flex-col">
+      {/* Top Navigation Bar */}
+      <nav className="bg-white border-b border-border/60 shadow-sm">
+        <div className="container mx-auto px-4 py-3 flex items-center justify-between">
+          <div className="flex items-center gap-2.5">
+            <div className="h-9 w-9 rounded-lg bg-primary flex items-center justify-center">
+              <Home className="h-5 w-5 text-primary-foreground" />
+            </div>
+            <span className="text-xl font-bold tracking-tight text-foreground">
+              Property<span className="text-primary">Genie</span>
+            </span>
+          </div>
+          <Suspense>
+            <SavedSearches />
+          </Suspense>
+        </div>
+      </nav>
+
+      {/* Search Header */}
+      <header className="sticky top-0 z-10 bg-white/90 backdrop-blur-md border-b border-border/40 shadow-sm">
         <div className="container mx-auto px-4 py-4">
-          <h1 className="text-2xl font-bold mb-4">Properties For Sale</h1>
           <div className="flex flex-wrap items-center gap-3">
             <Suspense>
               <SearchBar />
@@ -96,9 +113,6 @@ export default async function ForSalePage({ searchParams }: PageProps) {
               <SortSelect />
             </Suspense>
             <Suspense>
-              <SavedSearches />
-            </Suspense>
-            <Suspense>
               <div className="lg:hidden">
                 <SearchFilters />
               </div>
@@ -107,8 +121,9 @@ export default async function ForSalePage({ searchParams }: PageProps) {
         </div>
       </header>
 
-      <main className="container mx-auto px-4 py-6">
-        <div className="flex gap-6">
+      {/* Main Content */}
+      <main className="flex-1 container mx-auto px-4 py-6">
+        <div className="flex gap-8">
           <Suspense>
             <div className="hidden lg:block">
               <SearchFilters />
@@ -132,6 +147,16 @@ export default async function ForSalePage({ searchParams }: PageProps) {
           </div>
         </div>
       </main>
+
+      {/* Footer */}
+      <footer className="border-t border-border/40 bg-white">
+        <div className="container mx-auto px-4 py-6">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-3 text-sm text-muted-foreground">
+            <p>PropertyGenie - Find your dream property in Malaysia</p>
+            <p>Built with care for property seekers</p>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }

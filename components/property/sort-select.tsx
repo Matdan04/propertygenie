@@ -31,7 +31,7 @@ export function SortSelect() {
 
   return (
     <Select value={currentSort} onValueChange={handleSortChange}>
-      <SelectTrigger className="w-[180px]">
+      <SelectTrigger className="w-[180px] bg-white border-border/60">
         <SelectValue placeholder="Sort by" />
       </SelectTrigger>
       <SelectContent>
